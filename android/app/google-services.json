@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1014727687369",
+    "project_id": "brewcoffee-aef92",
+    "storage_bucket": "brewcoffee-aef92.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014727687369:android:8d069dfbdb2dc73b136118",
+        "android_client_info": {
+          "package_name": "com.tonyrogers.brewcoffee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014727687369-g17sn0rdcn50ttkqaqagq27br30lmi18.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKJYRAWzZYhjEJ6Gpzjcod6wdsB9CUAE4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014727687369-g17sn0rdcn50ttkqaqagq27br30lmi18.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
