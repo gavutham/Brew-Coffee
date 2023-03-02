@@ -75,17 +75,24 @@ class _AuthScreenState extends State<AuthScreen> {
               const SizedBox(height: 20.0,),
               ElevatedButton(
                 onPressed: () async {
+                  setState(() {
+                    error = '';
+                  });
                   if(_formKey.currentState!.validate()){
                     if (widget.mode == "register"){
                       dynamic user = await _auth.registerWithEmailAndPassword(email, password);
-                      if (user != null){
+                      if (user == null){
                         setState(() {
                           error = "Something went wrong, Please try again.";
                         });
                       }
                     }else{
-                      print(email);
-                      print(password);
+                      dynamic user = await _auth.signInWithEmailAndPassword(email, password);
+                      if (user == null){
+                        setState(() {
+                          error = "Can't sign in with given credentials.";
+                        });
+                      }
                     }
                   }
                 },
