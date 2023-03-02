@@ -13,8 +13,8 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
 
-  // auth service initialization
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
 
   //form state variable
   String email = '';
@@ -49,6 +49,7 @@ class _AuthScreenState extends State<AuthScreen> {
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               const SizedBox(height: 20.0,),
@@ -58,6 +59,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     email = val;
                   });
                 },
+                validator: (val) => val!.isEmpty ? "Enter a email" : null,
               ),
               const SizedBox(height: 20.0,),
               TextFormField(
@@ -66,17 +68,20 @@ class _AuthScreenState extends State<AuthScreen> {
                     password = val;
                   });
                 },
+                validator: (val) => val!.length > 6 ? null : "Enter a valid password",
                 obscureText: true,
               ),
               const SizedBox(height: 20.0,),
               ElevatedButton(
                 onPressed: (){
-                  if (widget.mode == "register"){
-                    print(email);
-                    print(password);
-                  }else{
-                    print(email);
-                    print(password);
+                  if(_formKey.currentState!.validate()){
+                    if (widget.mode == "register"){
+                      print(email);
+                      print(password);
+                    }else{
+                      print(email);
+                      print(password);
+                    }
                   }
                 },
                 style: ButtonStyle(
