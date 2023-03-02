@@ -1,4 +1,5 @@
 import 'package:brew_coffee/services/auth.dart';
+import 'package:brew_coffee/shared/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -55,6 +56,7 @@ class _AuthScreenState extends State<AuthScreen> {
             children: [
               const SizedBox(height: 20.0,),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: "Email"),
                 onChanged: (val) {
                   setState(() {
                     email = val;
@@ -64,6 +66,7 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
               const SizedBox(height: 20.0,),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: "Password"),
                 onChanged: (val) {
                   setState(() {
                     password = val;
