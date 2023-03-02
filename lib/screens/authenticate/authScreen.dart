@@ -1,5 +1,6 @@
 import 'package:brew_coffee/services/auth.dart';
 import 'package:brew_coffee/shared/constants.dart';
+import 'package:brew_coffee/shared/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+  bool loading = false;
 
   //form state variable
   String email = '';
@@ -24,7 +26,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? const Loading() : Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
@@ -82,10 +84,14 @@ class _AuthScreenState extends State<AuthScreen> {
                     error = '';
                   });
                   if(_formKey.currentState!.validate()){
+                    setState(() {
+                      loading = true;
+                    });
                     if (widget.mode == "register"){
                       dynamic user = await _auth.registerWithEmailAndPassword(email, password);
                       if (user == null){
                         setState(() {
+                          loading = false;
                           error = "Something went wrong, Please try again.";
                         });
                       }
@@ -93,6 +99,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       dynamic user = await _auth.signInWithEmailAndPassword(email, password);
                       if (user == null){
                         setState(() {
+                          loading = false;
                           error = "Can't sign in with given credentials.";
                         });
                       }
