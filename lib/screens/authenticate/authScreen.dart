@@ -19,6 +19,7 @@ class _AuthScreenState extends State<AuthScreen> {
   //form state variable
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -73,11 +74,15 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
               const SizedBox(height: 20.0,),
               ElevatedButton(
-                onPressed: (){
+                onPressed: () async {
                   if(_formKey.currentState!.validate()){
                     if (widget.mode == "register"){
-                      print(email);
-                      print(password);
+                      dynamic user = await _auth.registerWithEmailAndPassword(email, password);
+                      if (user != null){
+                        setState(() {
+                          error = "Something went wrong, Please try again.";
+                        });
+                      }
                     }else{
                       print(email);
                       print(password);
@@ -93,7 +98,14 @@ class _AuthScreenState extends State<AuthScreen> {
                     color: Colors.white,
                   ),
                 ),
-              )
+              ),
+              const SizedBox(height: 20.0,),
+              Text(
+                error,
+                style: const TextStyle(
+                  color: Colors.red
+                )
+              ),
             ],
           ),
         )
