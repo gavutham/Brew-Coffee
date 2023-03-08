@@ -1,3 +1,4 @@
+import 'package:brew_coffee/models/brew.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
@@ -14,8 +15,16 @@ class DatabaseService {
     });
   }
 
-  Stream<QuerySnapshot> get brews {
-    return brewCollection.snapshots();
+
+  List<Brew> _brewListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((e) => Brew(
+        name: e.data().toString().contains("name") ? e["name"] : "",
+        sugar: e.data().toString().contains("sugars") ? e["sugars"] : "",
+        strength: e.data().toString().contains("strength") ? e["strength"] : 0)).toList();
+  }
+
+  Stream<List<Brew>> get brews {
+    return brewCollection.snapshots().map(_brewListFromSnapshot);
   }
 
 }
