@@ -1,7 +1,7 @@
 import 'package:brew_coffee/models/brew.dart';
+import 'package:brew_coffee/screens/home/settings_form.dart';
 import 'package:brew_coffee/services/auth.dart';
 import 'package:brew_coffee/services/database.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'brew_list.dart';
@@ -13,6 +13,16 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    void _showSettingsPanel() {
+      showModalBottomSheet(context: context, builder: (context) {
+        return Container(
+          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+          child: SettingsForm(),
+        );
+      });
+    }
+
     return StreamProvider<List<Brew>>.value(
       initialData: [],
       value: DatabaseService().brews,
@@ -37,6 +47,19 @@ class Home extends StatelessWidget {
               onPressed: () async {
                 await _auth.signOut();
               },
+            ),
+            TextButton.icon(
+              onPressed: () => _showSettingsPanel(),
+              icon: Icon(
+                Icons.settings,
+                color: Colors.black,
+              ),
+              label: Text(
+                "Settings",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
             )
           ],
         ),
