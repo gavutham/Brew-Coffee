@@ -16,7 +16,7 @@ class _SettingsFormState extends State<SettingsForm> {
   //form values
   String _currentName = "";
   String _currentSugars = "";
-  int _currentStrength = 0;
+  int _currentStrength = 100;
 
 
   @override
@@ -40,6 +40,7 @@ class _SettingsFormState extends State<SettingsForm> {
           ),
           SizedBox(height: 20.0,),
           DropdownButtonFormField(
+            decoration: textInputDecoration,
             value: _currentSugars == "" ? '0': _currentSugars,
             items: sugars.map((sugar){
               return DropdownMenuItem(
@@ -48,6 +49,18 @@ class _SettingsFormState extends State<SettingsForm> {
               );
             }).toList(),
             onChanged: (val) => _currentSugars = val.toString(),
+          ),
+          SizedBox(height: 20.0,),
+          Slider(
+            value: _currentStrength.toDouble(),
+            activeColor: Colors.brown[_currentStrength],
+            inactiveColor: Colors.white,
+            min: 100,
+            max: 900,
+            divisions: 8,
+            onChanged: (val) => setState(() {
+              _currentStrength = val.toInt();
+            }),
           ),
           SizedBox(height: 20.0,),
           ElevatedButton(
@@ -65,7 +78,7 @@ class _SettingsFormState extends State<SettingsForm> {
                 color: Colors.white
               ),
             ),
-          )
+          ),
         ],
       ),
     );
